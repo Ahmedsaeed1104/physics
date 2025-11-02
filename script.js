@@ -834,6 +834,30 @@ function calculateScore(topicId) {
 
     // عرض النتيجة في نفس المكان دون التمرير
     showScore(topicId, correctAnswers, totalQuestions);
+
+    // إضافة التمرير إلى النتائج بعد حسابها
+    setTimeout(() => {
+        scrollToTestResults();
+    }, 300);
+}
+
+// التمرير إلى نتائج الاختبار
+function scrollToTestResults() {
+    const testResults = document.getElementById('test-results');
+    if (testResults) {
+        // حساب الموقع المناسب للتمرير
+        const testsSection = document.querySelector('.tests-section');
+        const sectionTop = testsSection.offsetTop;
+        const navbarHeight = 80; // ارتفاع الشريط العلوي
+
+        window.scrollTo({
+            top: sectionTop - navbarHeight,
+            behavior: 'smooth'
+        });
+
+        // إضافة تأثير مرئي للنتائج
+        testResults.style.animation = 'bounceIn 0.8s ease';
+    }
 }
 
 // عرض النتيجة
@@ -883,6 +907,13 @@ function showScore(topicId, correctAnswers, totalQuestions) {
     }
 
     testResults.classList.add('show');
+    // // التمرير إلى النتائج بعد عرضها
+    // setTimeout(() => {
+    //     testResults.scrollIntoView({
+    //         behavior: 'smooth',
+    //         block: 'center'
+    //     });
+    // }, 100);
 }
 
 // تهيئة قسم الملخصات
