@@ -820,7 +820,7 @@ function calculateScore(topicId) {
     const questionCards = topicContent.querySelectorAll('.question-card');
 
     let correctAnswers = 0;
-    const totalQuestions = questionCards.length;
+    const totalQuestions = questionsData[topicId].answers.length;
 
     questionCards.forEach(card => {
         const questionIndex = parseInt(card.getAttribute('data-question-index'));
@@ -877,9 +877,12 @@ function showScore(topicId, correctAnswers, totalQuestions) {
     const totalQuestionsSpan = testResults.querySelector('.total-questions');
     const scoreCircle = testResults.querySelector('.score-circle');
 
-    const percentage = (correctAnswers / totalQuestions) * 100;
+    // حساب النسبة المئوية بناءً على العدد الحقيقي للأسئلة
+    const percentage = Math.round((correctAnswers / totalQuestions) * 100);
 
-    if (scoreValue) scoreValue.textContent = correctAnswers;
+    // ✅ التصحيح: عرض النسبة المئوية في scoreValue
+    if (scoreValue) scoreValue.textContent = percentage;
+
     if (correctAnswersSpan) correctAnswersSpan.textContent = correctAnswers;
     if (totalQuestionsSpan) totalQuestionsSpan.textContent = totalQuestions;
 
@@ -907,13 +910,6 @@ function showScore(topicId, correctAnswers, totalQuestions) {
     }
 
     testResults.classList.add('show');
-    // // التمرير إلى النتائج بعد عرضها
-    // setTimeout(() => {
-    //     testResults.scrollIntoView({
-    //         behavior: 'smooth',
-    //         block: 'center'
-    //     });
-    // }, 100);
 }
 
 // تهيئة قسم الملخصات
